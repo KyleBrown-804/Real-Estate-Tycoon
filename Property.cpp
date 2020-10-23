@@ -6,12 +6,19 @@
 
 const string locations[] = {"SE", "NE", "Midwest", "SW", "NW"};
 
+/*** Property Constructor
+ *
+ */
 Property::Property(){
 	int loc_id = rand() % 5;
 	location = locations[loc_id];
 }
 
 
+/*** Property copy constructor
+ *
+ * @param orig - Property to be copied
+ */
 Property::Property(Property &orig) {
 	value = orig.value;
 	location = orig.location;
@@ -21,6 +28,10 @@ Property::Property(Property &orig) {
 
 }
 
+
+/*** Property deconstructor
+ *
+ */
 Property::~Property() {
 
 }

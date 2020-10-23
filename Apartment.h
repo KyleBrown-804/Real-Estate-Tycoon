@@ -7,8 +7,17 @@
 #include "Property.h"
 
 
-class Apartment: public Property {
+class Apartment: Property {
 
+public:
+	// constructor
+	Apartment();
+
+	// copy constructor
+	Apartment(Apartment &orig);
+
+	// deconstructor
+	~Apartment();
 };
 
 

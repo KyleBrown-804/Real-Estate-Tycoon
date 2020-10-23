@@ -9,6 +9,15 @@
 
 class Business: Property {
 
+public:
+	// constructor
+	Business();
+
+	// copy constructor
+	Business(Business &orig);
+
+	// deconstructor
+	~Business();
 };
 
 
