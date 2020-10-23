@@ -6,6 +6,43 @@
 #define REAL_ESTATE_TYCOON_GAME_H
 
 class Game {
+	// constructor
+	Game();
+
+	// copy constructor
+	Game(const Game &g);
+
+	// deconstructor
+	~Game();
+
+	// assignment operator
+	 Game & operator=(const Game &g);
+
+	 // copy function
+	 void copy(const Game& g);
+
+	 // game loop
+	 void game_loop();
+
+	 // random event
+	 void random_event();
+
+	 // player makes a choice
+	 void turn_choice();
+
+	 // buying properties
+	 void buy_property();
+
+	 // buy house
+	 void buy_house(int h_idx);
+
+	 // buy apartment complex
+	 void buy_a_complex(int a_idx);
+
+	 // buy business complex
+	 void buy_b_complex(int b_idx);
+
+
 
 };
 
