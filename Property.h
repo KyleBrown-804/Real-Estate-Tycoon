@@ -16,11 +16,23 @@ class Property {
 	 */
 
 public:
+
+	// constructor
+	Property();
+
+	// copy constructor
+	Property(Property &orig);
+
+	// Deconstructor
+	~Property();
+
 	int value;
 	string location;
 	int mortgage;
+	int mortgage_duration;
 	const double property_tax = value * 0.015;
-	Tenant[] tenats;
+	int max_tenants;
+	Tenant *tenats;
 };
 
 

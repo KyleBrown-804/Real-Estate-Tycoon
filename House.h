@@ -8,6 +8,15 @@
 
 
 class House: Property {
+public:
+	// Constructor
+	House();
+
+	// copy constructor
+	House(House &orig);
+
+	// deconstructor
+	~House();
 
 };
 
