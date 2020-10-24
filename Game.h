@@ -8,6 +8,7 @@
 #include "House.h";
 #include "Apartment.h"
 #include "Business.h"
+#include "Player.h"
 
 class Game {
 
@@ -69,6 +70,9 @@ public:
 	// businesses
 	int num_b = 3;
 	Business[] b_complexes;
+
+	// Player
+	Player player;
 
 };
 
