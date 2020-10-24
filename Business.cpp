@@ -32,6 +32,29 @@ Business::Business(Business &orig) {
 	mortgage_duration = orig.mortgage_duration;
 }
 
+/** Business "equals" operator overload
+ *
+ * @param right - Business to be copied
+ * @return this - Copied Business object
+ */
+Business & Business::operator=(const Business &right) {
+    // Handles the case of self assignment x = x better
+    if (&right == this) {
+        return (*this);
+    }
+
+    else {
+        this->max_tenants = right.max_tenants;
+        this->tenats = right.tenats;
+
+        this->value = right.value;
+        this->mortgage = right.mortgage;
+        this->mortgage_duration = right.mortgage_duration;
+
+        return (*this);
+    }
+}
+
 Business::~Business() {
 
 }

@@ -6,7 +6,6 @@
 #define REAL_ESTATE_TYCOON_HOUSE_H
 #include "Property.h"
 
-
 class House: Property {
 public:
 	// Constructor
@@ -14,6 +13,9 @@ public:
 
 	// copy constructor
 	House(House &orig);
+
+	// equals operator overload
+	House & operator=(const House &right);
 
 	// deconstructor
 	~House();

@@ -28,7 +28,7 @@ bool Player::has_vacant_properties() {
 
 }
 
-void Player::add_property(int p) {
+void Player::add_property(Property p) {
 
 }
 

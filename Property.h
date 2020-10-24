@@ -33,6 +33,16 @@ public:
 	const double property_tax = value * 0.015;
 	int max_tenants;
 	Tenant *tenats;
+
+	// idk what this refers to so I made it int temporarily
+	int spaces;
+
+    // functions for houses, apartments, and business complexes
+    double get_value();
+    int get_mortgage();
+    string get_location();
+    int get_spaces();
+
 };
 
 

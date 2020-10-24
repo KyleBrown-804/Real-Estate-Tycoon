@@ -30,6 +30,29 @@ Apartment::Apartment(Apartment &orig) {
 	mortgage_duration = orig.mortgage_duration;
 }
 
+/** Apartment "equals" operator overload
+ *
+ * @param right - Apartment to be copied
+ * @return this - Copied Apartment object
+ */
+Apartment & Apartment::operator=(const Apartment &right) {
+
+    // Handles the case of self assignment x = x better
+    if (&right == this) {
+      return (*this);
+    }
+
+    else {
+        this->max_tenants = right.max_tenants;
+        this->tenats = right.tenats;
+
+        this->value = right.value;
+        this->mortgage = right.mortgage;
+        this->mortgage_duration = right.mortgage_duration;
+
+        return (*this);
+    }
+}
 
 /*** Apartment deconstructor
  *

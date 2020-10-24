@@ -81,18 +81,21 @@ void Game::copy(const Game& g)
   this->player = g.player;
   this->num_houses = g.num_houses;
   this->houses = new House[this->num_houses];
+
   for (int i = 0; i < this->num_houses; i++)
   {
     this->houses[i] = g.houses[i];
   }
   this->num_a = g.num_a;
   this->a_complexes = new Apartment[this->num_a];
+
   for (int i = 0; i < this->num_a; i++)
   {
     this->a_complexes[i] = g.a_complexes[i];
   }
   this->num_b = g.num_b;
   this->b_complexes = new Business[this->num_b];
+
   for (int i = 0; i < this->num_b; i++)
   {
     this->b_complexes[i] = g.b_complexes[i];
@@ -127,7 +130,7 @@ void Game::game_loop()
       break;
 
     // money ??
-    cout << "\nBank account balance: $" << money << endl;
+    cout << "\nBank account balance: $" << player.get_money() << endl;
     //Give player option to buy, sell, or adjust rent
     turn_choice();
 
@@ -296,7 +299,7 @@ void Game::buy_property()
 ********************************************************************/
 void Game::buy_house(int h_idx)
 {
-  player.add_property(houses[h_idx]);
+  player.add_property(houses[h_idx]); // [NOTE] need to fix inheritance with Property being "private"
   houses[h_idx] = House(); //generate new property into game array
   cout << "\nCongratulations on purchasing the house!\n" << endl;
 }
@@ -310,7 +313,7 @@ void Game::buy_house(int h_idx)
 ********************************************************************/
 void Game::buy_a_complex(int a_idx)
 {
-  player.add_property(a_complexes[a_idx]);
+  player.add_property(a_complexes[a_idx]);  // [NOTE] need to fix inheritance with Property being "private"
   a_complexes[a_idx] = Apartment();
     cout << "\nCongratulations on purchasing the apartment complex!\n" <<
       endl;
@@ -325,7 +328,7 @@ void Game::buy_a_complex(int a_idx)
 ********************************************************************/
 void Game::buy_b_complex(int b_idx)
 {
-  player.add_property(b_complexes[b_idx]);
+  player.add_property(b_complexes[b_idx]); // [NOTE] need to fix inheritance with Property being "private"
   b_complexes[b_idx] = Business(); //generate new property into game array
     cout << "\nCongratulations on purchasing the business complex!\n" <<
       endl;

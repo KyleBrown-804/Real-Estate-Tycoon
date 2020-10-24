@@ -6,6 +6,7 @@
 #define REAL_ESTATE_TYCOON_PLAYER_H
 
 #include "Player.h"
+#include "Property.h"
 
 class Player {
 public:
