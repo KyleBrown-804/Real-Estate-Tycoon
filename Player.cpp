@@ -19,7 +19,7 @@ Player::~Player() {
 }
 
 int Player::get_num_properties() {
-
+    return num_Properties;
 }
 
 void Player::collect_rent() {

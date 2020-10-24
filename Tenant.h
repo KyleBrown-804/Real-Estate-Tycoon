@@ -17,7 +17,7 @@ public:
     };
 
 	// constructor
-	Tenant();
+	Tenant(Type tenType);
 
 	// copy constructor
 	Tenant(Tenant &orig);

@@ -15,7 +15,6 @@ Property::Property(){
 	location = locations[loc_id];
 }
 
-
 /*** Property copy constructor
  *
  * @param orig - Property to be copied
@@ -26,9 +25,7 @@ Property::Property(Property &orig) {
 	mortgage = orig.mortgage;
 	mortgage_duration = orig.mortgage_duration;
 	max_tenants = orig.max_tenants;
-
 }
-
 
 /*** Property destructor
  *
@@ -41,7 +38,7 @@ double Property::get_value() {
 	return value;
 }
 
-int Property::get_mortgage() {
+double Property::get_mortgage() {
 	return mortgage;
 }
 

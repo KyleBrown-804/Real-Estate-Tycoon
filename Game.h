@@ -5,9 +5,9 @@
 #ifndef REAL_ESTATE_TYCOON_GAME_H
 #define REAL_ESTATE_TYCOON_GAME_H
 
-#include "House.h"
-#include "Apartment.h"
-#include "Business.h"
+#include "Houses.h"
+#include "ApartmentComplex.h"
+#include "BusinessComplex.h"
 #include "Player.h"
 
 class Game {
@@ -61,15 +61,15 @@ public:
 
 	// houses
 	int num_houses;
-	House * houses;
+	Houses * houses;
 
 	// apartments
 	int num_a = 3;
-	Apartment * a_complexes;
+	ApartmentComplex * a_complexes;
 
 	// businesses
 	int num_b = 3;
-	Business * b_complexes;
+	BusinessComplex * b_complexes;
 
 	// Player
 	Player player;

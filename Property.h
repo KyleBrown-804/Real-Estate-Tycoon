@@ -27,20 +27,18 @@ public:
 	// Deconstructor
 	~Property();
 
-	int value;
+	double value;
 	string location;
-	int mortgage;
+	double mortgage;
 	int mortgage_duration;
 	const double property_tax = value * 0.015;
 	int max_tenants;
-	Tenant *tenats;
+	Tenant *tenants;
 
-	// idk what this refers to so I made it int temporarily
-	int spaces;
 
     // functions for houses, apartments, and business complexes
     double get_value();
-    int get_mortgage();
+    double get_mortgage();
     string get_location();
     int get_spaces();
 

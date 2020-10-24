@@ -19,11 +19,11 @@ using namespace std;
 Game::Game()
 {
   num_houses = 3;
-  houses = new House[num_houses];
+  houses = new Houses[num_houses];
   num_a = 3;
-  a_complexes = new Apartment[num_a];
+  a_complexes = new ApartmentComplex[num_a];
   num_b = 3;
-  b_complexes = new Business[num_b];
+  b_complexes = new BusinessComplex[num_b];
 }
 
 /********************************************************************
@@ -80,21 +80,21 @@ void Game::copy(const Game& g)
 {
   this->player = g.player;
   this->num_houses = g.num_houses;
-  this->houses = new House[this->num_houses];
+  this->houses = new Houses[this->num_houses];
 
   for (int i = 0; i < this->num_houses; i++)
   {
     this->houses[i] = g.houses[i];
   }
   this->num_a = g.num_a;
-  this->a_complexes = new Apartment[this->num_a];
+  this->a_complexes = new ApartmentComplex[this->num_a];
 
   for (int i = 0; i < this->num_a; i++)
   {
     this->a_complexes[i] = g.a_complexes[i];
   }
   this->num_b = g.num_b;
-  this->b_complexes = new Business[this->num_b];
+  this->b_complexes = new BusinessComplex[this->num_b];
 
   for (int i = 0; i < this->num_b; i++)
   {
@@ -181,7 +181,7 @@ void Game::random_event()
 * This is called by the game loop each turn and it is where the
 * user interacts with the game. They can choose to either buy a
 * property, sell a property, or adjust rent on a property or space in
-* a Business Complex. The user's turn will repeat if they choose an
+* a BusinessComplex Complex. The user's turn will repeat if they choose an
 * option they can't actually do.
 ********************************************************************/
 void Game::turn_choice()
@@ -252,17 +252,17 @@ void Game::buy_property()
 
   cout << "\nHere are some properties that you could buy:\n" << endl;
 
-  cout << "1. House Price: " << houses[h_idx].get_value() <<
+  cout << "1. Houses Price: " << houses[h_idx].get_value() <<
     " Mortgage: " << houses[h_idx].get_mortgage() <<
     " Location: " << houses[h_idx].get_location() << endl;
 
-  cout << "2. Apartment Complex Price: " <<
+  cout << "2. ApartmentComplex Complex Price: " <<
     a_complexes[a_idx].get_value() <<
     " Mortgage: " << a_complexes[a_idx].get_mortgage() <<
     " Location: " << a_complexes[a_idx].get_location() <<
     " Units: " << a_complexes[a_idx].get_spaces() << endl;
 
-  cout << "3. Business Complex Price: " <<
+  cout << "3. BusinessComplex Complex Price: " <<
     b_complexes[b_idx].get_value() <<
     " Mortgage: " << b_complexes[b_idx].get_mortgage() <<
     " Location: " << b_complexes[b_idx].get_location() <<
@@ -299,7 +299,7 @@ void Game::buy_property()
 void Game::buy_house(int h_idx)
 {
   player.add_property(houses[h_idx]);
-  houses[h_idx] = House(); // generate new property into game array
+  houses[h_idx] = Houses(); // generate new property into game array
   cout << "\nCongratulations on purchasing the house!\n" << endl;
 }
 
@@ -313,7 +313,7 @@ void Game::buy_house(int h_idx)
 void Game::buy_a_complex(int a_idx)
 {
   player.add_property(a_complexes[a_idx]);
-  a_complexes[a_idx] = Apartment();
+  a_complexes[a_idx] = ApartmentComplex();
     cout << "\nCongratulations on purchasing the apartment complex!\n" <<
       endl;
 }
@@ -328,7 +328,7 @@ void Game::buy_a_complex(int a_idx)
 void Game::buy_b_complex(int b_idx)
 {
   player.add_property(b_complexes[b_idx]);
-  b_complexes[b_idx] = Business(); // generate new property into game array
+  b_complexes[b_idx] = BusinessComplex(); // generate new property into game array
     cout << "\nCongratulations on purchasing the business complex!\n" <<
       endl;
 }
