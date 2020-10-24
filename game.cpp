@@ -126,6 +126,7 @@ void Game::game_loop()
     if ((player.get_money() < 0) || (player.get_money() > 1000000))
       break;
 
+    // money ??
     cout << "\nBank account balance: $" << money << endl;
     //Give player option to buy, sell, or adjust rent
     turn_choice();
