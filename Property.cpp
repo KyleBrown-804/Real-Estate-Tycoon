@@ -3,6 +3,7 @@
 //
 
 #include "Property.h"
+#include <cstdlib>
 
 const string locations[] = {"SE", "NE", "Midwest", "SW", "NW"};
 
@@ -29,7 +30,7 @@ Property::Property(Property &orig) {
 }
 
 
-/*** Property deconstructor
+/*** Property destructor
  *
  */
 Property::~Property() {

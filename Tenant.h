@@ -9,17 +9,29 @@
 class Tenant {
 
 public:
+
+    // enum Tenant type
+    enum Type {
+        citizen,
+        business
+    };
+
 	// constructor
 	Tenant();
 
 	// copy constructor
 	Tenant(Tenant &orig);
 
+	// equals operator overload
+	Tenant & operator=(const Tenant &right);
+
 	// deconstructor
 	~Tenant();
 
 	// fields
-	//
+	    int agreeability;
+	    int maxBudget;
+        Type tenantType;
 };
 
 

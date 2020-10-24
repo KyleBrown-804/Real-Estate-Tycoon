@@ -5,7 +5,9 @@
 #include "Player.h"
 
 Player::Player() {
-
+    bank_account = 500000;
+    num_Properties = 0;
+    has_Vacancies = false;
 }
 
 Player::Player(Player &orig) {
@@ -42,6 +44,9 @@ void Player::sell_property() {
 
 void Player::view_properties() {
 
+    for(int i = 0; i < num_Properties; i++) {
+
+    }
 }
 
 void Player::adjust_rent_inputs() {
@@ -56,8 +61,8 @@ void Player::pay_taxes() {
 
 }
 
-int Player::get_money() {
-	return 2;
+double Player::get_money() {
+	return bank_account;
 }
 
 /***

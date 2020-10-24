@@ -129,7 +129,6 @@ void Game::game_loop()
     if ((player.get_money() < 0) || (player.get_money() > 1000000))
       break;
 
-    // money ??
     cout << "\nBank account balance: $" << player.get_money() << endl;
     //Give player option to buy, sell, or adjust rent
     turn_choice();
@@ -300,7 +299,7 @@ void Game::buy_property()
 void Game::buy_house(int h_idx)
 {
   player.add_property(houses[h_idx]);
-  houses[h_idx] = House(); //generate new property into game array
+  houses[h_idx] = House(); // generate new property into game array
   cout << "\nCongratulations on purchasing the house!\n" << endl;
 }
 
@@ -329,7 +328,7 @@ void Game::buy_a_complex(int a_idx)
 void Game::buy_b_complex(int b_idx)
 {
   player.add_property(b_complexes[b_idx]);
-  b_complexes[b_idx] = Business(); //generate new property into game array
+  b_complexes[b_idx] = Business(); // generate new property into game array
     cout << "\nCongratulations on purchasing the business complex!\n" <<
       endl;
 }

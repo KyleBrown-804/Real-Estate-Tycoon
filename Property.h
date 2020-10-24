@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Tenant.h"
+
 using namespace std;
 
 class Property {

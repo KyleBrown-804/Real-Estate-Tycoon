@@ -54,7 +54,7 @@ public:
 	void pay_taxes();
 
 	// return money in bank account
-	int get_money();
+	double get_money();
 
 	// hurricane in the SE. properties down 50%
 	void hurricane();
@@ -73,6 +73,17 @@ public:
 
 	// gentrification. all up 20%
 	void gentrification();
+
+private:
+    /**
+     * Fields
+     */
+    int num_Properties;
+    bool has_Vacancies;
+    double bank_account;
+
+    Property * player_properties;
+
 };
 
 

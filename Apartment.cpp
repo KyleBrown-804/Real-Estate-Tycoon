@@ -54,7 +54,7 @@ Apartment & Apartment::operator=(const Apartment &right) {
     }
 }
 
-/*** Apartment deconstructor
+/*** Apartment destructor
  *
  */
 Apartment::~Apartment() {

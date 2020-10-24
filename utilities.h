@@ -7,8 +7,6 @@
 
 #include <string>
 
-
-    // Possibly need to take in a stream?
-    bool check_and_convert_input(std::string& input);
+    int check_and_convert_input(std::string& input);
 
 #endif //REAL_ESTATE_TYCOON_UTILITIES_H
