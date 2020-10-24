@@ -14,7 +14,7 @@ Business::Business() {
 	tenats = new Tenant[max_tenants];
 	sizes = new string[max_tenants];
 
-	value = 300000 + rand() % 10000;
+	value = 400000 + (rand() % 200000) + 1;
 	mortgage = 500 + rand() % 4500;
 	mortgage_duration = value / mortgage;
 }

@@ -11,7 +11,7 @@ House::House() {
 	max_tenants = 1;
 	tenats = new Tenant[max_tenants];
 
-	value = 100000 + rand() % 200000;
+	value = 100000 + (rand() % 500000) + 1;
 	mortgage = 500 + rand() % 4500;
 	mortgage_duration = value / mortgage;
 }
