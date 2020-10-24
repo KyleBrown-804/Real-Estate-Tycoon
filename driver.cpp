@@ -1,27 +1,12 @@
-/********************************************************************
-* Program: driver.cpp
-* Description: This is the main file for
-*              the Real Estate Tycoon assignment.
-********************************************************************/
-#include "Game.h"
-// #include "Player.h"
-// #include "Property.h"
-// #include "House.h"
-// #include "Apartment.h"
-// #include "Business.h"
-// #include "Tenant.h"
-
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
+#include "Game.h"
 
-using namespace std;
+int main() {
+	srand(time(NULL)); //Seeding the random number generator
 
-int main()
-{
-  srand(time(NULL)); //Seeding the random number generator
-
-  Game g;
-  g.game_loop();
-
+	Game g;
+	g.game_loop();
+    return 0;
 }

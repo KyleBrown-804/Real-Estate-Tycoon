@@ -299,7 +299,7 @@ void Game::buy_property()
 ********************************************************************/
 void Game::buy_house(int h_idx)
 {
-  player.add_property(houses[h_idx]); // [NOTE] need to fix inheritance with Property being "private"
+  player.add_property(houses[h_idx]);
   houses[h_idx] = House(); //generate new property into game array
   cout << "\nCongratulations on purchasing the house!\n" << endl;
 }
@@ -313,7 +313,7 @@ void Game::buy_house(int h_idx)
 ********************************************************************/
 void Game::buy_a_complex(int a_idx)
 {
-  player.add_property(a_complexes[a_idx]);  // [NOTE] need to fix inheritance with Property being "private"
+  player.add_property(a_complexes[a_idx]);
   a_complexes[a_idx] = Apartment();
     cout << "\nCongratulations on purchasing the apartment complex!\n" <<
       endl;
@@ -328,7 +328,7 @@ void Game::buy_a_complex(int a_idx)
 ********************************************************************/
 void Game::buy_b_complex(int b_idx)
 {
-  player.add_property(b_complexes[b_idx]); // [NOTE] need to fix inheritance with Property being "private"
+  player.add_property(b_complexes[b_idx]);
   b_complexes[b_idx] = Business(); //generate new property into game array
     cout << "\nCongratulations on purchasing the business complex!\n" <<
       endl;

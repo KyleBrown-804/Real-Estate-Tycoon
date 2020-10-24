@@ -8,6 +8,18 @@
 
 class Tenant {
 
+public:
+	// constructor
+	Tenant();
+
+	// copy constructor
+	Tenant(Tenant &orig);
+
+	// deconstructor
+	~Tenant();
+
+	// fields
+	//
 };
 
 

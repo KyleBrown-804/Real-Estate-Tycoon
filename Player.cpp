@@ -57,7 +57,7 @@ void Player::pay_taxes() {
 }
 
 int Player::get_money() {
-
+	return 2;
 }
 
 /***
