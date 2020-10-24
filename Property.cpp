@@ -36,3 +36,20 @@ Property::~Property() {
 
 }
 
+double Property::get_value() {
+	return value;
+}
+
+int Property::get_mortgage() {
+	return mortgage;
+}
+
+int Property::get_spaces() {
+	//return max_tenants;
+	return -1;
+}
+
+string Property::get_location() {
+	return location;
+}
+

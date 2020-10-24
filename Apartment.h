@@ -6,7 +6,7 @@
 #define REAL_ESTATE_TYCOON_APARTMENT_H
 #include "Property.h"
 
-class Apartment: Property {
+class Apartment: public Property {
 
 public:
 	// constructor

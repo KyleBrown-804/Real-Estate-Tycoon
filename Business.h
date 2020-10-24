@@ -6,7 +6,7 @@
 #define REAL_ESTATE_TYCOON_BUSINESS_H
 #include "Property.h"
 
-class Business: Property {
+class Business: public Property {
 
 public:
 	// constructor

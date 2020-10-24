@@ -24,6 +24,10 @@ void Player::collect_rent() {
 
 }
 
+void Player::flag_vancies() {
+
+}
+
 bool Player::has_vacant_properties() {
 
 }
