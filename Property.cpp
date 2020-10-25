@@ -27,6 +27,24 @@ Property::Property(Property &orig) {
 	max_tenants = orig.max_tenants;
 }
 
+Property & Property::operator=(const Property &right) {
+	// Handles the case of self assignment x = x better
+	if (&right == this) {
+		return (*this);
+	}
+
+	else {
+		this->max_tenants = right.max_tenants;
+		this->tenants = right.tenants;
+		this->location = right.location;
+		this->value = right.value;
+		this->mortgage = right.mortgage;
+		this->mortgage_duration = right.mortgage_duration;
+
+		return (*this);
+	}
+}
+
 /*** Property destructor
  *
  */
@@ -43,11 +61,18 @@ double Property::get_mortgage() {
 }
 
 int Property::get_spaces() {
-	//return max_tenants;
-	return -1;
+	return max_tenants;
 }
 
 string Property::get_location() {
 	return location;
+}
+
+int Property::get_max_tenants() {
+	return max_tenants;
+}
+
+void Property::set_tenants(int tenants) {
+	max_tenants = tenants;
 }
 

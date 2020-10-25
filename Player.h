@@ -7,6 +7,8 @@
 
 #include "Player.h"
 #include "Property.h"
+#include <list>
+#include <iterator>
 
 class Player {
 public:
@@ -82,7 +84,7 @@ private:
     bool has_Vacancies;
     double bank_account;
 
-    Property * player_properties;
+    Property *player_properties;
 
 };
 

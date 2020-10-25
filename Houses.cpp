@@ -48,7 +48,7 @@ Houses & Houses::operator=(const Houses &right) {
     else {
         this->max_tenants = right.max_tenants;
         this->tenants = right.tenants;
-
+		this->location = right.location;
         this->value = right.value;
         this->mortgage = right.mortgage;
         this->mortgage_duration = right.mortgage_duration;

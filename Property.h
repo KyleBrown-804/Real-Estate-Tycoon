@@ -24,6 +24,9 @@ public:
 	// copy constructor
 	Property(Property &orig);
 
+	// equals operator overload
+	Property & operator=( const Property &right);
+
 	// Deconstructor
 	~Property();
 
@@ -41,6 +44,13 @@ public:
     double get_mortgage();
     string get_location();
     int get_spaces();
+    int get_max_tenants();
+
+    void set_tenants(int tenants);
+    void set_value(double value);
+    void set_mortgage(double mortgage);
+    void set_location(double location);
+
 
 };
 

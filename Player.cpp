@@ -3,11 +3,19 @@
 //
 
 #include "Player.h"
+#include "Property.h"
+#include <iostream>
+#include "Houses.h"
+#include <list>
+#include <iterator>
+
+using namespace std;
 
 Player::Player() {
     bank_account = 500000;
     num_Properties = 0;
     has_Vacancies = false;
+    player_properties = new Property[20];
 }
 
 Player::Player(Player &orig) {
@@ -36,6 +44,10 @@ bool Player::has_vacant_properties() {
 
 void Player::add_property(Property p) {
 
+	if (num_Properties < 20) {
+		player_properties[0] = p;
+		num_Properties++;
+	}
 }
 
 void Player::sell_property() {
@@ -45,7 +57,10 @@ void Player::sell_property() {
 void Player::view_properties() {
 
     for(int i = 0; i < num_Properties; i++) {
-
+		cout << player_properties[i].get_location() << endl;
+		cout << player_properties[i].get_value() << endl;
+		cout << player_properties[i].get_mortgage() << endl;
+		cout << player_properties[i].get_spaces() << endl;
     }
 }
 

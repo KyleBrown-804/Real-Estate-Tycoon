@@ -30,7 +30,7 @@ ApartmentComplex::ApartmentComplex() {
 ApartmentComplex::ApartmentComplex(ApartmentComplex &orig) {
 	max_tenants = orig.max_tenants;
 	tenants = orig.tenants;
-
+	location = orig.location;
 	value = orig.value;
 	mortgage = orig.mortgage;
 	mortgage_duration = orig.mortgage_duration;
@@ -51,7 +51,7 @@ ApartmentComplex & ApartmentComplex::operator=(const ApartmentComplex &right) {
     else {
         this->max_tenants = right.max_tenants;
         this->tenants = right.tenants;
-
+		this->location = right.location;
         this->value = right.value;
         this->mortgage = right.mortgage;
         this->mortgage_duration = right.mortgage_duration;
