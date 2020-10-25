@@ -16,6 +16,8 @@ public:
         business
     };
 
+    Tenant();
+
 	// constructor
 	Tenant(Type tenType);
 
@@ -23,7 +25,7 @@ public:
 	Tenant(Tenant &orig);
 
 	// equals operator overload
-	Tenant & operator=(const Tenant &right);
+	Tenant & operator=( const Tenant &right);
 
 	// deconstructor
 	~Tenant();
@@ -32,6 +34,7 @@ public:
 	    int agreeability;
 	    int maxBudget;
         Type tenantType;
+        bool dead;
 };
 
 

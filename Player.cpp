@@ -31,11 +31,28 @@ int Player::get_num_properties() {
 }
 
 void Player::collect_rent() {
-
+	for(int i = 0; i < num_Properties++; i++){
+		bank_account += player_properties[i].get_rent();
+	}
 }
 
 void Player::flag_vancies() {
+	for(int i = 0; i < num_Properties++; i++){
+		Property currentProp = player_properties[i];
 
+		for(int j = 0; j < currentProp.max_tenants; j++){
+
+			if(!currentProp.rooms[j].isOccupied) continue;
+
+			Tenant currentTenant = currentProp.tenants[j];
+			if(currentTenant.agreeability > 2 && currentTenant.maxBudget < currentProp.rooms[j].currentRent){
+				currentProp.rooms[j].isOccupied = false;
+				/***
+				 * remember to DELETE TENANT
+				 */
+			}
+		}
+	}
 }
 
 bool Player::has_vacant_properties() {
@@ -45,7 +62,7 @@ bool Player::has_vacant_properties() {
 void Player::add_property(Property p) {
 
 	if (num_Properties < 20) {
-		player_properties[0] = p;
+		player_properties[num_Properties] = p;
 		num_Properties++;
 	}
 }
@@ -57,10 +74,9 @@ void Player::sell_property() {
 void Player::view_properties() {
 
     for(int i = 0; i < num_Properties; i++) {
-		cout << player_properties[i].get_location() << endl;
-		cout << player_properties[i].get_value() << endl;
-		cout << player_properties[i].get_mortgage() << endl;
-		cout << player_properties[i].get_spaces() << endl;
+		cout << "=============" << endl;
+		cout << "Property #" << i+1 << endl;
+		cout << player_properties[i].to_string() << endl;
     }
 }
 

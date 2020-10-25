@@ -8,6 +8,10 @@
 
 using namespace std;
 
+Tenant::Tenant() {
+
+}
+
 /** Tenant Constructor
  *
  * @description 50/50 chance the tenant is assigned a citizen or business type,
@@ -16,6 +20,7 @@ using namespace std;
  */
 Tenant::Tenant(Type tenType) {
 
+	dead = false;
     if(tenType == citizen) {
          tenantType = citizen;
          maxBudget = 500 + (rand() % 5000) + 1;
@@ -44,9 +49,17 @@ Tenant::Tenant(Tenant &orig) {
  * @return this - The copied Tenant object
  */
 Tenant & Tenant::operator=(const Tenant &right) {
-    tenantType = right.tenantType;
-    agreeability = right.agreeability;
-    maxBudget = right.maxBudget;
+
+	if (&right == this) {
+		return (*this);
+	}
+
+	else {
+		this->tenantType = right.tenantType;
+		this->agreeability = right.agreeability;
+		this->maxBudget = right.maxBudget;
+		return (*this);
+	}
 }
 
 /** Tenant destructor

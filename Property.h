@@ -30,6 +30,11 @@ public:
 	// Deconstructor
 	~Property();
 
+	struct Room{
+		bool isOccupied;
+		double currentRent;
+	};
+
 	double value;
 	string location;
 	double mortgage;
@@ -37,6 +42,9 @@ public:
 	const double property_tax = value * 0.015;
 	int max_tenants;
 	Tenant *tenants;
+	int occupied_rooms;
+	double currentRent;
+	Room *rooms;
 
 
     // functions for houses, apartments, and business complexes
@@ -44,12 +52,15 @@ public:
     double get_mortgage();
     string get_location();
     int get_spaces();
-    int get_max_tenants();
+    int get_occupied_rooms();
+    double get_rent();
 
-    void set_tenants(int tenants);
     void set_value(double value);
     void set_mortgage(double mortgage);
     void set_location(double location);
+    void set_vacancies(int rooms);
+    string to_string();
+
 
 
 };

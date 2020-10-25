@@ -3,6 +3,7 @@
 //
 
 #include "Property.h"
+#include "Tenant.h"
 #include <cstdlib>
 
 const string locations[] = {"SE", "NE", "Midwest", "SW", "NW"};
@@ -25,6 +26,8 @@ Property::Property(Property &orig) {
 	mortgage = orig.mortgage;
 	mortgage_duration = orig.mortgage_duration;
 	max_tenants = orig.max_tenants;
+	tenants = orig.tenants;
+	rooms = orig.rooms;
 }
 
 Property & Property::operator=(const Property &right) {
@@ -40,6 +43,7 @@ Property & Property::operator=(const Property &right) {
 		this->value = right.value;
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
+		this->rooms = rooms;
 
 		return (*this);
 	}
@@ -56,6 +60,17 @@ double Property::get_value() {
 	return value;
 }
 
+double Property::get_rent() {
+	double total_rent = 0;
+	for(int i = 0; i < max_tenants; i++){
+		if(!rooms[i].isOccupied) continue;
+		if(tenants[i].agreeability < 2 && tenants[i].maxBudget < rooms[i].currentRent) continue;
+
+		total_rent += rooms[i].currentRent;
+	}
+	return total_rent;
+}
+
 double Property::get_mortgage() {
 	return mortgage;
 }
@@ -68,11 +83,16 @@ string Property::get_location() {
 	return location;
 }
 
-int Property::get_max_tenants() {
-	return max_tenants;
+int Property::get_occupied_rooms() {
+	return occupied_rooms;
 }
 
-void Property::set_tenants(int tenants) {
-	max_tenants = tenants;
+string Property::to_string() {
+	string str;
+	str += "Property Value:\t" + std::to_string(value);
+	str += "\nMortgage:\t" + std::to_string(mortgage);
+	str += "\nLocation:\t" + location;
+	str += "\nUnits:\t" + std::to_string(max_tenants);
+	return str;
 }
 
