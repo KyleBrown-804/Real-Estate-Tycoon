@@ -31,13 +31,13 @@ int Player::get_num_properties() {
 }
 
 void Player::collect_rent() {
-	for(int i = 0; i < num_Properties++; i++){
+	for(int i = 0; i < num_Properties; i++){
 		bank_account += player_properties[i].get_rent();
 	}
 }
 
 void Player::flag_vancies() {
-	for(int i = 0; i < num_Properties++; i++){
+	for(int i = 0; i < num_Properties; i++){
 		Property currentProp = player_properties[i];
 
 		for(int j = 0; j < currentProp.max_tenants; j++){
@@ -47,9 +47,6 @@ void Player::flag_vancies() {
 			Tenant currentTenant = currentProp.tenants[j];
 			if(currentTenant.agreeability > 2 && currentTenant.maxBudget < currentProp.rooms[j].currentRent){
 				currentProp.rooms[j].isOccupied = false;
-				/***
-				 * remember to DELETE TENANT
-				 */
 			}
 		}
 	}

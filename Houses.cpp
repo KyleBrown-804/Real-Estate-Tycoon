@@ -61,7 +61,7 @@ Houses & Houses::operator=(const Houses &right) {
 		this->value = right.value;
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
-		this->rooms = rooms;
+		this->rooms = right.rooms;
         return (*this);
     }
 }
