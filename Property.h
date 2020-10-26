@@ -36,6 +36,7 @@ public:
 	};
 
 	bool isVacant;
+	bool isSold;
 	bool isBusiness;
 	double value;
 	string location;

@@ -80,15 +80,17 @@ void Player::flag_vancies() {
 		 * Goes through and checks if current residents exist
          * if not then it stays flagged as vacant.
 		 */
-        currentProp.isVacant = true;
+		player_properties[i].isVacant = true;
 
-		for(int j = 0; j < currentProp.max_tenants; j++) {
+		for(int j = 0; j < player_properties[i].max_tenants; j++) {
 
-		    if(currentProp.rooms[j].isOccupied) {
-                currentProp.isVacant = false;
-                j = currentProp.max_tenants;
+		    if(player_properties[i].rooms[j].isOccupied) {
+				player_properties[i].isVacant = false;
+                j = player_properties[i].max_tenants;
 		    }
 		}
+
+		cout << "Currprore " << endl;
 	}
 }
 
@@ -124,7 +126,80 @@ void Player::add_property(Property p) {
  *
  */
 void Player::sell_property() {
+	int numVacant = 0;
+	for(int i = 0; i < num_Properties; i++){
+		if(player_properties[i].isVacant){
+			numVacant++;
+		}
+	}
 
+	int *vacant_indexes = new int[numVacant];
+	int j = 0;
+	for(int i = 0; i < num_Properties; i++){
+		if(player_properties[i].isVacant){
+			vacant_indexes[j] = i;
+			j++;
+		}
+	}
+
+	string input = "0";
+	int prop_index = 0;
+
+	do {
+		printVancancies();
+		cout << "Which property # would you like to sell?" << "\n" << endl;
+		getline(cin, input);
+		prop_index = check_and_convert_input(input);
+	}
+	while ( (prop_index < 1 || prop_index > num_Properties) && !isSellable(prop_index-1, vacant_indexes, numVacant));
+
+	getSellingPrice(prop_index-1);
+
+}
+
+void Player::getSellingPrice(int prop_i) {
+
+	string askingPrice;
+	double sellingPrice;
+
+	cout << "What price would you like to sell at?" << endl;
+	getline(cin, askingPrice);
+	sellingPrice = check_and_convert_input(askingPrice);
+
+	int luck = (rand() % 3) +1;
+	if(luck == 3){
+		cout << "You sold it for your asking price! " << sellingPrice << endl;
+		bank_account += sellingPrice;
+	}else if(luck == 2){
+		sellingPrice = player_properties[prop_i].value;
+		cout << "You sold it for the original property value! " << sellingPrice << endl;
+		bank_account += sellingPrice;
+	}else{
+		sellingPrice = (player_properties[prop_i].value * 0.9);
+		cout << "You sold it for your 10% less of orignal property value! " << sellingPrice << endl;
+		bank_account += sellingPrice;
+	}
+}
+
+// addd a print vancancies
+void Player::printVancancies(){
+	for(int i = 0; i < num_Properties; i++){
+		if(player_properties[i].isVacant){
+			cout << "Property #" << i+1 << " is vacant" << endl;
+			player_properties[i].to_string();
+		}
+	}
+}
+
+bool Player::isSellable(int prop_i, int *vacants, int size){
+	for(int i = 0; i < size; i++){
+		if(vacants[i] == prop_i){
+			return true;
+		}
+	}
+	cout << "This property is not vacant!!" << endl;
+	cout << "You can only sell vacant properties" << endl;
+	return false;
 }
 
 /**

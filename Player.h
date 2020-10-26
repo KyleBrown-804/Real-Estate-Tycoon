@@ -40,6 +40,15 @@ public:
 	// sell a property
 	void sell_property();
 
+	// check if can sell
+	bool isSellable(int prop_i, int *vancats, int size);
+
+	// print vancancies
+	void printVancancies();
+
+	// get selling price
+	void getSellingPrice(int prop_i);
+
 	// add a property;
 	void add_property(Property p);
 
