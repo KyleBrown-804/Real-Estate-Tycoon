@@ -123,6 +123,7 @@ void Game::game_loop()
         player.pay_taxes();
       }
 
+      cout << "\n" <<"[!!! EVENT !!!]" << endl;
       random_event();
     }
 

@@ -50,7 +50,6 @@ public:
 	double currentRent;
 	Room *rooms;
 
-
     // functions for houses, apartments, and business complexes
     double get_value();
     double get_mortgage();

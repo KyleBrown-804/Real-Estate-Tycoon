@@ -17,6 +17,7 @@ Property::Property(){
 	location = locations[loc_id];
 	mortgage_progress = 0;
     isVacant = false;
+    isSold = false;
 }
 
 /*** Property copy constructor
@@ -34,6 +35,7 @@ Property::Property(Property &orig) {
 	rooms = orig.rooms;
     isVacant = orig.isVacant;
     isBusiness = orig.isBusiness;
+    isSold = orig.isSold;
 }
 
 Property & Property::operator=(const Property &right) {
@@ -53,13 +55,15 @@ Property & Property::operator=(const Property &right) {
 		this->isVacant = right.isVacant;
 		this->rooms = right.rooms;
 		this->isBusiness = right.isBusiness;
+		this->isSold = right.isSold;
 
 		return (*this);
 	}
 }
 
 /*** Property destructor
- *
+ *  @description We ran out of time to implement, however luckily 90% of our data
+ *  is primitive values (except a few arrays) which are deleted implicitly.
  */
 Property::~Property() {
 

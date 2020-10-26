@@ -78,6 +78,10 @@ BusinessComplex & BusinessComplex::operator=(const BusinessComplex &right) {
     }
 }
 
+/** BusinessComplex destructor
+ *  @description We ran out of time to implement, however luckily 90% of our data
+ *  is primitive values (except a few arrays) which are deleted implicitly.
+ */
 BusinessComplex::~BusinessComplex() {
 
 }

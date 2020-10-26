@@ -43,8 +43,8 @@ public:
 	// check if can sell
 	bool isSellable(int prop_i, int *vancats, int size);
 
-	// print vancancies
-	void printVancancies();
+	// prints vacancies
+	void printVacancies();
 
 	// get selling price
 	void getSellingPrice(int prop_i);

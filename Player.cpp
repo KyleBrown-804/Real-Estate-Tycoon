@@ -25,6 +25,10 @@ Player::Player(Player &orig) {
 
 }
 
+/**
+ *  @description We ran out of time to implement, however luckily 90% of our data
+ *  is primitive values (except a few arrays) which are deleted implicitly.
+ */
 Player::~Player() {
 
 }
@@ -49,7 +53,7 @@ void Player::collect_rent() {
 		bank_account += currentProp.get_rent();
 	}
 
-	cout << "Rent has been collected from all applicable properties!" << endl;
+	cout << "[RENT] Rent has been collected from all applicable properties!" << endl;
 }
 
 /**
@@ -89,8 +93,6 @@ void Player::flag_vancies() {
                 j = player_properties[i].max_tenants;
 		    }
 		}
-
-		cout << "Currprore " << endl;
 	}
 }
 
@@ -102,7 +104,7 @@ void Player::flag_vancies() {
 bool Player::has_vacant_properties() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
-        if(currentProp.isVacant) {
+        if(currentProp.isVacant && !currentProp.isSold) {
             return true;
         }
     }
@@ -117,18 +119,30 @@ bool Player::has_vacant_properties() {
  */
 void Player::add_property(Property p) {
 	if (num_Properties < 20) {
-		player_properties[num_Properties] = p;
-		num_Properties++;
+
+	    if(has_vacant_properties()) {
+	        for(int i = 0; i < num_Properties; i++) {
+	            if(player_properties[i].isSold) {
+	                player_properties[i] = p;
+	            }
+	        }
+	    }
+	    else {
+            player_properties[num_Properties] = p;
+            num_Properties++;
+	    }
 	}
 }
 
 /**
- *
+ * @description Gets the list of all vacant properties then prompts the
+ * user to pick which one to sell, then asks them for an asking price of sale
+ * then randomly selects a selling event.
  */
 void Player::sell_property() {
 	int numVacant = 0;
 	for(int i = 0; i < num_Properties; i++){
-		if(player_properties[i].isVacant){
+		if(player_properties[i].isVacant && !player_properties[i].isSold){
 			numVacant++;
 		}
 	}
@@ -136,7 +150,7 @@ void Player::sell_property() {
 	int *vacant_indexes = new int[numVacant];
 	int j = 0;
 	for(int i = 0; i < num_Properties; i++){
-		if(player_properties[i].isVacant){
+		if(player_properties[i].isVacant && !player_properties[i].isSold){
 			vacant_indexes[j] = i;
 			j++;
 		}
@@ -146,7 +160,7 @@ void Player::sell_property() {
 	int prop_index = 0;
 
 	do {
-		printVancancies();
+        printVacancies();
 		cout << "Which property # would you like to sell?" << "\n" << endl;
 		getline(cin, input);
 		prop_index = check_and_convert_input(input);
@@ -157,6 +171,10 @@ void Player::sell_property() {
 
 }
 
+/**
+ * @description prompts user for selling price
+ * @param prop_i - property index to be sold
+ */
 void Player::getSellingPrice(int prop_i) {
 
 	string askingPrice;
@@ -176,21 +194,35 @@ void Player::getSellingPrice(int prop_i) {
 		bank_account += sellingPrice;
 	}else{
 		sellingPrice = (player_properties[prop_i].value * 0.9);
-		cout << "You sold it for your 10% less of orignal property value! " << sellingPrice << endl;
+		cout << "You sold it for your 10% less of original property value! " << sellingPrice << endl;
 		bank_account += sellingPrice;
 	}
+
+	player_properties[prop_i].isSold = true;
 }
 
-// addd a print vancancies
-void Player::printVancancies(){
-	for(int i = 0; i < num_Properties; i++){
-		if(player_properties[i].isVacant){
+/**
+ * @description prints a list of all the vacant properties available
+ */
+void Player::printVacancies(){
+
+    cout <<"================ VACANCIES ==================" << endl;
+    for(int i = 0; i < num_Properties; i++){
+		if(player_properties[i].isVacant && !player_properties[i].isSold){
 			cout << "Property #" << i+1 << " is vacant" << endl;
-			player_properties[i].to_string();
+			cout << player_properties[i].to_string() << endl;
 		}
 	}
 }
 
+/**
+ * @description checks if the input property is sellable
+ *
+ * @param prop_i - the users selected property number
+ * @param vacants - the array of vacant properties
+ * @param size - array size of vacant properties
+ * @return boolean - true if the input is a available vacant property
+ */
 bool Player::isSellable(int prop_i, int *vacants, int size){
 	for(int i = 0; i < size; i++){
 		if(vacants[i] == prop_i){
@@ -212,7 +244,10 @@ void Player::view_properties() {
 		cout << "================LIST OF PROPERTIES================" << endl;
 		cout << "Property #" << i+1 << endl;
 
-        if(player_properties[i].isVacant) {
+		if(player_properties[i].isSold) {
+		    cout << "Sold property" << endl;
+		}
+        else if(player_properties[i].isVacant) {
             cout << "Vacant property" << endl;
             continue;
         }
@@ -260,7 +295,7 @@ void Player::adjust_rent_inputs() {
             currentProp.rooms[i].currentRent = adjusted_rent;
         }
 
-        cout << "Rent has been adjusted for all tenants" << endl;
+        cout << "[Adjusted Rent] Rent has been adjusted for all tenants" << endl;
     }
 }
 
@@ -306,7 +341,7 @@ void Player::pay_mortgages() {
         currentProp.mortgage_progress += currentProp.mortgage;
     }
 
-    cout << "Mortgages have been paid for all properties!" << endl;
+    cout << "[Mortgage] Mortgages have been paid for all properties!" << endl;
 }
 
 /**

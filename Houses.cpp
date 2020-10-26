@@ -70,8 +70,9 @@ Houses & Houses::operator=(const Houses &right) {
     }
 }
 
-/*** Houses deconstructor
- *
+/** Houses destructor
+ *  @description We ran out of time to implement, however luckily 90% of our data
+ *  is primitive values (except a few arrays) which are deleted implicitly.
  */
 Houses::~Houses() {
 
