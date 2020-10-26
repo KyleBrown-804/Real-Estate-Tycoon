@@ -9,8 +9,8 @@
  */
 ApartmentComplex::ApartmentComplex() {
 	max_tenants = 1 + rand() % 10;
-
 	tenants = new Tenant[max_tenants];
+	isBusiness = false;
 
 	// populate for number of max tenants, (Tenants of type citizen)
 	for (int i = 0; i< max_tenants; i++) {
@@ -42,6 +42,7 @@ ApartmentComplex::ApartmentComplex(ApartmentComplex &orig) {
 	max_tenants = orig.max_tenants;
 	tenants = orig.tenants;
 	rooms = orig.rooms;
+	isBusiness = orig.isBusiness;
 }
 
 /** ApartmentComplex "equals" operator overload
@@ -64,6 +65,7 @@ ApartmentComplex & ApartmentComplex::operator=(const ApartmentComplex &right) {
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
 		this->rooms = right.rooms;
+		this->isBusiness = right.isBusiness;
 
         return (*this);
     }

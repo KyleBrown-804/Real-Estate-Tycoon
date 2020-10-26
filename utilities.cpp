@@ -8,21 +8,16 @@
 
 using namespace std;
 
-// Basically works as a parse int
+// Works as a parse int
 int check_and_convert_input(std::string& input) {
-    int choice;
+    int number;
     istringstream iss(input);
 
     // Valid parsed int
-    if(iss >> choice) {
-
-        if(choice <= 3 && choice >= 1) {
-            return choice;
-        }
+    if(iss >> number) {
+        return number;
     }
 
-    cout << "invalid input" << endl;
+    cout << "invalid input, not an integer" << endl;
     return -1;
 }
-
-

@@ -35,7 +35,8 @@ public:
 		double currentRent;
 	};
 
-	bool isSold;
+	bool isVacant;
+	bool isBusiness;
 	double value;
 	string location;
 	double mortgage;
@@ -62,6 +63,7 @@ public:
     void set_location(double location);
     void set_vacancies(int rooms);
     string to_string();
+    void spacesToString();
 
 
 

@@ -3,6 +3,7 @@
 //
 
 #include "BusinessComplex.h"
+#include <iostream>
 
 const string sizes[] = {"small", "medium", "large"};
 
@@ -10,10 +11,10 @@ const string sizes[] = {"small", "medium", "large"};
  *
  */
 BusinessComplex::BusinessComplex() {
-    // initialization
 	max_tenants = 1 + rand() % 5;
 	roomSizes = new string[max_tenants];
 	tenants = new Tenant[max_tenants];
+	isBusiness = true;
 
     // populate for number of max tenants, (Tenants of type business)
     for (int i = 0; i< max_tenants; i++) {
@@ -30,7 +31,6 @@ BusinessComplex::BusinessComplex() {
 	mortgage_duration = value / mortgage;
 
 	// sets rooms to be default occupied with a tenant and the rent per unit
-	// (individual tenant's rent)
 	rooms = new Room[max_tenants];
 	for(int i = 0; i < max_tenants; i++){
 		rooms[i].isOccupied = true;
@@ -50,6 +50,7 @@ BusinessComplex::BusinessComplex(BusinessComplex &orig) {
 	max_tenants = orig.max_tenants;
 	tenants = orig.tenants;
 	rooms = orig.rooms;
+	isBusiness = orig.isBusiness;
 }
 
 /** BusinessComplex "equals" operator overload
@@ -71,6 +72,7 @@ BusinessComplex & BusinessComplex::operator=(const BusinessComplex &right) {
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
 		this->rooms = right.rooms;
+		this->isBusiness = right.isBusiness;
 
         return (*this);
     }

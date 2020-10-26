@@ -9,6 +9,7 @@
  */
 Houses::Houses() {
 	max_tenants = 1;
+    isBusiness = false;
 
 	// populating single tenant for house (Tenant type citizen)
 	tenants = new Tenant[max_tenants];
@@ -41,6 +42,7 @@ Houses::Houses(Houses &orig) {
 	max_tenants = orig.max_tenants;
 	tenants = orig.tenants;
 	rooms = orig.rooms;
+	isBusiness = orig.isBusiness;
 }
 
 /** Houses "equals" operator overload
@@ -62,6 +64,8 @@ Houses & Houses::operator=(const Houses &right) {
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
 		this->rooms = right.rooms;
+		this->isBusiness = right.isBusiness;
+
         return (*this);
     }
 }

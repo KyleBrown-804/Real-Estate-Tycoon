@@ -5,6 +5,7 @@
 #include "Property.h"
 #include "Tenant.h"
 #include <cstdlib>
+#include <iostream>
 
 const string locations[] = {"SE", "NE", "Midwest", "SW", "NW"};
 
@@ -15,7 +16,7 @@ Property::Property(){
 	int loc_id = rand() % 5;
 	location = locations[loc_id];
 	mortgage_progress = 0;
-    isSold = false;
+    isVacant = false;
 }
 
 /*** Property copy constructor
@@ -31,7 +32,8 @@ Property::Property(Property &orig) {
 	max_tenants = orig.max_tenants;
 	tenants = orig.tenants;
 	rooms = orig.rooms;
-	isSold = orig.isSold;
+    isVacant = orig.isVacant;
+    isBusiness = orig.isBusiness;
 }
 
 Property & Property::operator=(const Property &right) {
@@ -48,8 +50,9 @@ Property & Property::operator=(const Property &right) {
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
 		this->mortgage_progress = right.mortgage_progress;
-		this->isSold = right.isSold;
+		this->isVacant = right.isVacant;
 		this->rooms = right.rooms;
+		this->isBusiness = right.isBusiness;
 
 		return (*this);
 	}
@@ -78,7 +81,13 @@ double Property::get_rent() {
 		if(tenants[i].agreeability < 2 && tenants[i].maxBudget < rooms[i].currentRent) continue;
 
 		total_rent += rooms[i].currentRent;
+
+		// for business spaces, each occupied business tenant increases prop value by 1% each turn
+		if(isBusiness) {
+		    value *= 1.01;
+		}
 	}
+
 	return total_rent;
 }
 
@@ -105,5 +114,22 @@ string Property::to_string() {
 	str += "\nLocation:\t" + location;
 	str += "\nUnits:\t" + std::to_string(max_tenants);
 	return str;
+}
+
+/**
+ * @description To String that returns a list of all the spaces in the business complex
+ */
+void Property::spacesToString() {
+    for(int i = 0; i < max_tenants; i++) {
+        cout << "================LIST OF SPACES IN BUSINESS COMPLEX================" << endl;
+        if(!rooms[i].isOccupied) {
+            cout << "Space " << i+1 << ": is vacant." << endl;
+        }
+
+        else {
+            cout << "Space " << i+1 << ":" << endl;
+            cout << "Current Rent: " << rooms[i].currentRent << endl;
+        }
+    }
 }
 

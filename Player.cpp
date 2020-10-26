@@ -4,10 +4,13 @@
 
 #include "Player.h"
 #include "Property.h"
-#include <iostream>
 #include "Houses.h"
+#include "BusinessComplex.h"
+#include "utilities.h"
+#include <iostream>
 #include <list>
 #include <iterator>
+#include <cstdlib>
 
 using namespace std;
 
@@ -30,10 +33,23 @@ int Player::get_num_properties() {
     return num_Properties;
 }
 
+/** Collect Rent
+ *
+ * @description collects rent from all properties which are not tagged
+ * as completely vacant (no tenants).
+ */
 void Player::collect_rent() {
 	for(int i = 0; i < num_Properties; i++){
-		bank_account += player_properties[i].get_rent();
+	    Property currentProp = player_properties[i];
+
+	    if(currentProp.isVacant) {
+            continue;
+	    }
+
+		bank_account += currentProp.get_rent();
 	}
+
+	cout << "Rent has been collected from all applicable properties!" << endl;
 }
 
 /**
@@ -50,41 +66,153 @@ void Player::flag_vancies() {
 			if(!currentProp.rooms[j].isOccupied) continue;
 
 			Tenant currentTenant = currentProp.tenants[j];
-			if(currentTenant.agreeability > 2 && currentTenant.maxBudget < currentProp.rooms[j].currentRent){
+			if(currentTenant.agreeability >= 2 && currentTenant.maxBudget < currentProp.rooms[j].currentRent){
 				cout << "Yikes! A tenant has left property #"<< i+1 << " because the rent is too damn high!" << endl;
 			    currentProp.rooms[j].isOccupied = false;
 			}
+			else if(currentTenant.agreeability < 2 && currentTenant.maxBudget < currentProp.rooms[j].currentRent) {
+			    cout << "The rent is to high for a tenant, however they are unreasonable and are refusing to leave! \n" <<
+                        "In order to collect rent from them again, you must lower rent!" << endl;
+			}
+		}
+
+        /** [SETS TO VACANT IF APPLICABLE]
+		 * Goes through and checks if current residents exist
+         * if not then it stays flagged as vacant.
+		 */
+        currentProp.isVacant = true;
+
+		for(int j = 0; j < currentProp.max_tenants; j++) {
+
+		    if(currentProp.rooms[j].isOccupied) {
+                currentProp.isVacant = false;
+                j = currentProp.max_tenants;
+		    }
 		}
 	}
 }
 
+/**
+ * @description Checks is any properties are completely vacant
+ *
+ * @return boolean - true if there is at least one vacant property else false
+ */
 bool Player::has_vacant_properties() {
+    for(int i = 0; i < num_Properties; i++) {
+        Property currentProp = player_properties[i];
+        if(currentProp.isVacant) {
+            return true;
+        }
+    }
 
+    return false;
 }
 
+/**
+ * @description Adds property to players properties
+ *
+ * @param p - the property to be added
+ */
 void Player::add_property(Property p) {
-
 	if (num_Properties < 20) {
 		player_properties[num_Properties] = p;
 		num_Properties++;
 	}
 }
 
+/**
+ *
+ */
 void Player::sell_property() {
 
 }
 
+/**
+ * @description Prints out a list of all the player's current properties
+ * if property is vacant then 'Vacant Property' is printed out instead
+ */
 void Player::view_properties() {
-
     for(int i = 0; i < num_Properties; i++) {
-		cout << "=============" << endl;
+
+		cout << "================LIST OF PROPERTIES================" << endl;
 		cout << "Property #" << i+1 << endl;
+
+        if(player_properties[i].isVacant) {
+            cout << "Vacant property" << endl;
+            continue;
+        }
+
 		cout << player_properties[i].to_string() << endl;
     }
 }
 
+/**
+ * @description Adjusts the rent inputs for a specific house, or apartment. If the property is
+ * a business then the user is prompted again for which unit space to adjust rent for.
+ */
 void Player::adjust_rent_inputs() {
+    string input = "0";
+    int prop_index = 0;
 
+    do {
+        cout << "Which property # would you like to adjust rent for?" << "\n" << endl;
+        getline(cin, input);
+        prop_index = check_and_convert_input(input);
+    }
+    while (prop_index < 1 || prop_index > num_Properties);
+
+    int adjusted_rent = 0;
+    do {
+        cout << "What will the new rent value be? (over 400 min and under max 5000)" << "\n" << endl;
+        getline(cin, input);
+        adjusted_rent = check_and_convert_input(input);
+    }
+    while (adjusted_rent < 400 || adjusted_rent > 5000);
+
+    // adjusts rents specifically for specific business spaces
+    if(player_properties[prop_index-1].isBusiness) {
+        adjust_business_rents((prop_index - 1), adjusted_rent);
+    }
+
+    // adjust rent for houses & apartments
+    else {
+        Property currentProp = player_properties[prop_index-1];
+
+        for(int i = 0; i < currentProp.max_tenants; i++) {
+            if(!currentProp.rooms[i].isOccupied) {
+                continue;
+            }
+            currentProp.rooms[i].currentRent = adjusted_rent;
+        }
+
+        cout << "Rent has been adjusted for all tenants" << endl;
+    }
+}
+
+/**
+ * @description specialty function that adjusts rent for a specific space
+ * in a business complex.
+ *
+ * @param prop_i - the property index for the player's properties array
+ * @param adjusted - the new rent value for the business
+ */
+void Player::adjust_business_rents(int prop_i, int adjusted) {
+
+    // prints out list of business spaces in complex
+    player_properties[prop_i].spacesToString();
+
+    string input = "0";
+    int bus_unit_index;
+    do {
+        cout << "Which business space do you want to change rent for?" << "\n" << endl;
+        getline(cin, input);
+        bus_unit_index = check_and_convert_input(input);
+    }
+    while (bus_unit_index < 1 || bus_unit_index > player_properties[prop_i].max_tenants);
+
+    // changes the current rent for the specific business space
+    player_properties[prop_i].rooms[bus_unit_index-1].currentRent = adjusted;
+    cout << "Rent has been adjusted for the business in room #" << bus_unit_index << "\n" << endl;
 }
 
 /**
@@ -120,6 +248,7 @@ void Player::pay_taxes() {
 }
 
 /**
+ * Gets current player bank account total
  * @return bank_account - current bank total
  */
 double Player::get_money() {
@@ -136,7 +265,7 @@ void Player::hurricane() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
 
-        if(currentProp.isSold) {
+        if(currentProp.isVacant) {
             continue;
         }
 
@@ -153,7 +282,7 @@ void Player::tornado() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
 
-        if(currentProp.isSold) {
+        if(currentProp.isVacant) {
             continue;
         }
 
@@ -170,7 +299,7 @@ void Player::earthquake() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
 
-        if(currentProp.isSold) {
+        if(currentProp.isVacant) {
             continue;
         }
 
@@ -187,7 +316,7 @@ void Player::wildfire() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
 
-        if(currentProp.isSold) {
+        if(currentProp.isVacant) {
             continue;
         }
 
@@ -204,7 +333,7 @@ void Player::stock_market_crash() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
 
-        if(currentProp.isSold) {
+        if(currentProp.isVacant) {
             continue;
         }
 
@@ -219,7 +348,7 @@ void Player::gentrification() {
     for(int i = 0; i < num_Properties; i++) {
         Property currentProp = player_properties[i];
 
-        if(currentProp.isSold) {
+        if(currentProp.isVacant) {
             continue;
         }
 

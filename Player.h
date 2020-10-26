@@ -49,6 +49,9 @@ public:
 	// adjust rent
 	void adjust_rent_inputs();
 
+	// adjust rent special for business
+	void adjust_business_rents(int prop_i, int adjusted);
+
 	// pay mortages on properties
 	void pay_mortgages();
 
