@@ -14,6 +14,8 @@ const string locations[] = {"SE", "NE", "Midwest", "SW", "NW"};
 Property::Property(){
 	int loc_id = rand() % 5;
 	location = locations[loc_id];
+	mortgage_progress = 0;
+    isSold = false;
 }
 
 /*** Property copy constructor
@@ -25,9 +27,11 @@ Property::Property(Property &orig) {
 	location = orig.location;
 	mortgage = orig.mortgage;
 	mortgage_duration = orig.mortgage_duration;
+	mortgage_progress = orig.mortgage_progress;
 	max_tenants = orig.max_tenants;
 	tenants = orig.tenants;
 	rooms = orig.rooms;
+	isSold = orig.isSold;
 }
 
 Property & Property::operator=(const Property &right) {
@@ -43,6 +47,8 @@ Property & Property::operator=(const Property &right) {
 		this->value = right.value;
 		this->mortgage = right.mortgage;
 		this->mortgage_duration = right.mortgage_duration;
+		this->mortgage_progress = right.mortgage_progress;
+		this->isSold = right.isSold;
 		this->rooms = right.rooms;
 
 		return (*this);
@@ -60,6 +66,11 @@ double Property::get_value() {
 	return value;
 }
 
+/**
+ * @description Collects all rent payments for the given property
+ *
+ * @return total_rent - combined rent payments
+ */
 double Property::get_rent() {
 	double total_rent = 0;
 	for(int i = 0; i < max_tenants; i++){

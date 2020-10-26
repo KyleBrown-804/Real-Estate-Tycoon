@@ -29,6 +29,8 @@ BusinessComplex::BusinessComplex() {
 	mortgage = 500 + (rand() % 4500) + 1;
 	mortgage_duration = value / mortgage;
 
+	// sets rooms to be default occupied with a tenant and the rent per unit
+	// (individual tenant's rent)
 	rooms = new Room[max_tenants];
 	for(int i = 0; i < max_tenants; i++){
 		rooms[i].isOccupied = true;

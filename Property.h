@@ -35,9 +35,11 @@ public:
 		double currentRent;
 	};
 
+	bool isSold;
 	double value;
 	string location;
 	double mortgage;
+	double mortgage_progress;
 	int mortgage_duration;
 	const double property_tax = value * 0.015;
 	int max_tenants;
